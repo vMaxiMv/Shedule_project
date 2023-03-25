@@ -1,0 +1,17 @@
+*{
+    font-family: Shantell Sans ;
+    background-color: blanchedalmond;
+}
+.time{
+    padding-left: 40px;
+}
+.section2 .col{
+    font-size: 20px;
+}
+@media (max-width: 576px) {
+  .btn-lg, .btn{
+    font-size: 14px;
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 1rem;
+  }
+}
