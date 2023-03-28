@@ -23,6 +23,9 @@ const schedules = {
       {subject: "ПЛИС лаба", room: "4338у", time: "14:30-16:00"},
       {subject: "ПЛИС лаба", room: "4338у", time: "16:10-17:40"},
     ],
+    ch1_sat:[
+      {subject: "Выходной", room: "Дома", time: "24 часа"},
+    ],
     zn1_tue:[
       {subject: "Инж.граф лек", room:"1204", time:"9:00-10:30"},
       {subject: "Окошечко", room:"????", time:"10:40-12:10"},
@@ -80,6 +83,9 @@ const schedules = {
       {subject: "ПЛИС лаба", room: "4338у", time: "14:30-16:00"},
       {subject: "ПЛИС лаба", room: "4338у", time: "16:10-17:40"},
     ],
+    ch2_sat:[
+      {subject: "Выходной", room: "Дома", time: "24 часа"},
+    ],
     zn2_tue:[
       {subject: "Инж.граф лек", room:"1204", time:"9:00-10:30"},
       {subject: "Окошечко", room:"????", time:"10:40-12:10"},
@@ -99,7 +105,8 @@ const schedules = {
     ],
     zn2_fri: [
       {subject: "Физкультура", room: "5101", time: "9:00-10:30"},
-      
+      {subject: "Углубленный C", room: "4330", time: "10:40-12:10"},
+      {subject: "Углубленный C", room: "4330", time: "12:50-14:20"}
     ],
     zn2_sat:[
       {subject: "Электроника лаб", room:"3201", time:"9:00-10:30"},
@@ -119,6 +126,8 @@ const wed = document.querySelector('.wed')
 const third = document.querySelector('.third')
 const fri = document.querySelector('.fri')
 const sat = document.querySelector('.sat')
+const week_day = document.querySelector(".week_day")
+const example = document.querySelector('.example')
 let firstChClicked = false
 let firstZnClicked = false
 let secondChClicked = false
@@ -146,6 +155,7 @@ firstch.addEventListener('click', () => {
   firstZnClicked = false;
   secondChClicked = false;
   secondZnClicked = false;
+ 
 });
 
 firstzn.addEventListener('click', () => {
@@ -153,24 +163,38 @@ firstzn.addEventListener('click', () => {
   firstZnClicked = true;
   secondChClicked = false;
   secondZnClicked = false;
+
 });
 secondch.addEventListener('click', () => {
   firstChClicked = false;
   firstZnClicked = false;
   secondChClicked = true;
   secondZnClicked = false;
+ 
 });
 secondzn.addEventListener('click', () => {
   firstChClicked = false;
   firstZnClicked = false;
   secondChClicked = false;
   secondZnClicked = true;
+ 
+});
+const buttons = [
+  { button: firstch, color: "rgb(13,110,253)" },
+  { button: firstzn, color: "rgb(13,110,253)" },
+  { button: secondch, color: "rgb(13,110,253)" },
+  { button: secondzn, color: "rgb(13,110,253)" },
+];
+
+buttons.forEach((btn) => {
+  btn.button.addEventListener("click", () => {
+    buttons.forEach((b) => (b.button.style.backgroundColor = b.color));
+    btn.button.style.backgroundColor = "rgb(33,23,139)";
+  });
 });
 
-
-
-
 tue.addEventListener('click', () => {
+  week_day.innerHTML = "Вторник"
   if (firstChClicked) {
     schedule_day(schedules.ch1_tue);
   } else if (firstZnClicked) {
@@ -184,6 +208,7 @@ tue.addEventListener('click', () => {
     }
 });
 wed.addEventListener('click', () => {
+  week_day.innerHTML = "Среда"
   if (firstChClicked) {
     schedule_day(schedules.ch1_wed);
   } else if (firstZnClicked) {
@@ -197,6 +222,7 @@ wed.addEventListener('click', () => {
     }
 });
 third.addEventListener('click', () => {
+  week_day.innerHTML = "Четверг"
   if (firstChClicked) {
     schedule_day(schedules.ch1_third);
   } else if (firstZnClicked) {
@@ -210,6 +236,7 @@ third.addEventListener('click', () => {
     }
 });
 fri.addEventListener('click', () => {
+  week_day.innerHTML = "Пятница"
   if (firstChClicked) {
     schedule_day(schedules.ch1_fri);
   } else if (firstZnClicked) {
@@ -223,6 +250,7 @@ fri.addEventListener('click', () => {
     }
 });
 sat.addEventListener('click', () => {
+  week_day.innerHTML = "Суббота"
   if (firstChClicked) {
     schedule_day(schedules.ch1_sat);
   } else if (firstZnClicked) {
@@ -235,3 +263,4 @@ sat.addEventListener('click', () => {
     schedule_day(schedules.zn2_sat)  
     }
 });
+
