@@ -44,7 +44,6 @@ const schedules = {
       {subject: "Электроника лек", room:"1203", time:"10:40-12:10"},
       {subject: "ООП лаб", room:"4338y", time:"12:50-14:20"},
       {subject: "ООП лаб", room:"4338y", time:"14:30-16:00"},
-      {subject: "Электроника сем", room:"3210", time:"16:10-17:40"}
     ],
     zn1_fri: [
       {subject: "Физкультура", room: "5101", time: "9:00-10:30"},
@@ -194,73 +193,143 @@ buttons.forEach((btn) => {
 });
 
 tue.addEventListener('click', () => {
-  week_day.innerHTML = "Вторник"
+  const static_tue=()=>{week_day.innerHTML = "Вторник"}
   if (firstChClicked) {
     schedule_day(schedules.ch1_tue);
+    static_tue()
   } else if (firstZnClicked) {
     schedule_day(schedules.zn1_tue);
+    static_tue()
   }
     else if (secondChClicked){
     schedule_day(schedules.ch2_tue)
+    static_tue()
   }
     else if (secondZnClicked){
     schedule_day(schedules.zn2_tue)  
+    static_tue()
     }
 });
 wed.addEventListener('click', () => {
-  week_day.innerHTML = "Среда"
+  const static_wed=()=>{week_day.innerHTML = "Среда"}
   if (firstChClicked) {
     schedule_day(schedules.ch1_wed);
+    static_wed()
   } else if (firstZnClicked) {
     schedule_day(schedules.zn1_wed);
+    static_wed()
   }
     else if (secondChClicked){
     schedule_day(schedules.ch2_wed)
+    ()
   }
     else if (secondZnClicked){
     schedule_day(schedules.zn2_wed)  
+    static_wed()
     }
 });
 third.addEventListener('click', () => {
-  week_day.innerHTML = "Четверг"
+  const static_third=()=>{week_day.innerHTML = "Четверг"}
   if (firstChClicked) {
     schedule_day(schedules.ch1_third);
+    static_third()
   } else if (firstZnClicked) {
     schedule_day(schedules.zn1_third);
+    static_third()
   }
     else if (secondChClicked){
     schedule_day(schedules.ch2_third)
+    static_third()
   }
     else if (secondZnClicked){
     schedule_day(schedules.zn2_third)  
+    static_third()
     }
 });
 fri.addEventListener('click', () => {
-  week_day.innerHTML = "Пятница"
+  const static_fri=()=>{week_day.innerHTML = "Пятница"}
   if (firstChClicked) {
     schedule_day(schedules.ch1_fri);
+    static_fri()
   } else if (firstZnClicked) {
     schedule_day(schedules.zn1_fri);
+    static_fri()
   }
     else if (secondChClicked){
     schedule_day(schedules.ch2_fri)
+    static_fri()
   }
     else if (secondZnClicked){
     schedule_day(schedules.zn2_fri)  
+    static_fri()
     }
 });
 sat.addEventListener('click', () => {
-  week_day.innerHTML = "Суббота"
+  const static_sat=()=>week_day.innerHTML = "Суббота"
   if (firstChClicked) {
     schedule_day(schedules.ch1_sat);
+    static_sat()
   } else if (firstZnClicked) {
     schedule_day(schedules.zn1_sat);
+    static_sat()
   }
     else if (secondChClicked){
     schedule_day(schedules.ch2_sat)
+    static_sat()
   }
     else if (secondZnClicked){
     schedule_day(schedules.zn2_sat)  
+    static_sat()
     }
 });
+
+// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+const add_btn = document.querySelector('.add_btn')
+const form = document.querySelector('.form')
+const input = document.querySelector('input')
+const listGroup = document.querySelector('.list-group')
+const empty = document.querySelector('.empty')
+const goal = document.querySelector('.goal')
+
+form.addEventListener('submit',addHomeTask)
+function addHomeTask (event){
+  event.preventDefault()
+  const inputVal = input.value
+  const inputPunkt = `<li class="list-group-items d-flex justify-content-between align-items-center mt-5">
+  <span class="goal">${inputVal}</span>
+  <div class="buttons_ok_no">
+      <button type="button" data-action="done" class="btn_action btn_ok">
+          <img src="/img/galochka.svg" alt="Ok" width="36" height="42">
+      </button>
+      <button type="button" data-action="delete" class="btn_action btn_del">
+          <img src="/img/krestic_2.0.svg" alt="delete" width="36" height="42">
+      </button>
+  </div>
+</li>`
+  document.querySelector('.list-group').insertAdjacentHTML("beforeend", inputPunkt)
+  form.reset()
+  input.focus()
+
+  if(listGroup.children.length > 1){
+    empty.classList.add('none')
+  }
+}
+listGroup.addEventListener('click',deleteHomeTask)
+function deleteHomeTask(event){
+  if(event.target.dataset.action == 'delete'){
+    event.target.closest('li').remove()
+  }
+  // listGroup.children.length==0 ? empty.classList.remove('none') : 
+  if (listGroup.children.length == 1) empty.classList.remove('none')
+}
+listGroup.addEventListener('click', readyHomeTask)
+function readyHomeTask(event){
+if(event.target.dataset.action =='done'){
+// const rrr = event.target.closest('li').classList.add('ready')
+// rrr.toggle('done')
+const listItem = event.target.closest('li')
+listItem.classList.toggle('btn_ok--done')
+}
+}
+
 

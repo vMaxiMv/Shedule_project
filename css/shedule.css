@@ -1,17 +1,74 @@
 *{
     font-family: Shantell Sans ;
     background-color: blanchedalmond;
+    list-style-type: none;
 }
 .time{
     padding-left: 40px;
 }
 .section2 .col{
-    font-size: 20px;
+    font-size: 22px;
 }
-@media (max-width: 576px) {
+
+.input{
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  width: 80%;
+  margin-right: 1em;
+  background-color:rgb(250, 219, 179);
+  height: 40px;
+  font-size: 20px;
+}
+.form_group button{
+  height: 40px;
+}
+
+/* ------------------------------------------------------------------------------------------- */
+.btn_ok--done{
+  text-decoration: line-through;
+}
+.empty{
+  font-size: 22px;
+}
+.empty_img{
+  height: 100px;
+  width: 100%;
+}
+.btn_action{
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  border:none;
+  background-color: #e7ecf1;
+}
+.btn_action img{
+  background-color: #e7ecf1;
+  pointer-events: none;
+}
+.goal{
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+  padding: 8px 8px 8px 8px;
+  width: 100%;
+  height: auto;
+  background-color: #e7ecf1;
+}
+.buttons_ok_no{
+  display: flex;
+  column-gap: 5px;
+  margin-left: 5px;
+}
+/* ------------------------------------------------------------------------------------------- */
+@media screen and (max-width: 480px) {
   .btn-lg, .btn{
     font-size: 14px;
     padding: 0.5rem 1rem;
     margin: 0.5rem 1rem;
   }
+  .example .col{
+    font-size: 18px;
+  }
+  .input{
+    font-size: 17px;
+  }
+}
+/* ------------------------------------------------------------------------------------------- */
+.none{
+  display:none !important;
 }
