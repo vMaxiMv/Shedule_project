@@ -291,12 +291,26 @@ const listGroup = document.querySelector('.list-group')
 const empty = document.querySelector('.empty')
 const goal = document.querySelector('.goal')
 
+let DataArray = []
+EmptyList()
 form.addEventListener('submit',addHomeTask)
+
+
 function addHomeTask (event){
   event.preventDefault()
   const inputVal = input.value
-  const inputPunkt = `<li class="list-group-items d-flex justify-content-between align-items-center mt-5">
-  <span class="goal">${inputVal}</span>
+
+  const ObjectParametrs = {
+    id: Date.now(),
+    name: inputVal,
+    done: false
+  }
+  DataArray.push(ObjectParametrs)
+  const cssClass = ObjectParametrs.done ? 'list-group-items btn_ok--done' : 'list-group-items'
+  console.log(DataArray)
+  
+  const inputPunkt = `<li id="${ObjectParametrs.id}" class="${cssClass} d-flex justify-content-between align-items-center mt-5">
+  <span class="goal">${ObjectParametrs.name}</span>
   <div class="buttons_ok_no">
       <button type="button" data-action="done" class="btn_action btn_ok">
           <img src="/img/galochka.svg" alt="Ok" width="36" height="42">
@@ -306,30 +320,58 @@ function addHomeTask (event){
       </button>
   </div>
 </li>`
-  document.querySelector('.list-group').insertAdjacentHTML("beforeend", inputPunkt)
+  listGroup.insertAdjacentHTML("beforeend", inputPunkt)
   form.reset()
   input.focus()
+  EmptyList()
 
-  if(listGroup.children.length > 1){
-    empty.classList.add('none')
-  }
+
+  // if(listGroup.children.length > 1){
+  //   empty.classList.add('none')
+  // }
 }
 listGroup.addEventListener('click',deleteHomeTask)
+
+
 function deleteHomeTask(event){
   if(event.target.dataset.action == 'delete'){
-    event.target.closest('li').remove()
+    const delElement = event.target.closest('li')
+    const id = delElement.id
+    const index = DataArray.findIndex(elem=>elem.id==id)
+    DataArray.splice(index,1)
+    delElement.remove()
+    console.log(DataArray)
   }
-  // listGroup.children.length==0 ? empty.classList.remove('none') : 
-  if (listGroup.children.length == 1) empty.classList.remove('none')
+  EmptyList()
+  // if (listGroup.children.length == 1) empty.classList.remove('none')
 }
 listGroup.addEventListener('click', readyHomeTask)
+
+
 function readyHomeTask(event){
 if(event.target.dataset.action =='done'){
-// const rrr = event.target.closest('li').classList.add('ready')
-// rrr.toggle('done')
 const listItem = event.target.closest('li')
+const id_2 = listItem.id
+const index_2 = DataArray.findIndex(elem=>elem.id==id_2)
+DataArray[index_2].done = !DataArray[index_2].done
+console.log(DataArray[index_2].done)
 listItem.classList.toggle('btn_ok--done')
 }
 }
 
+function EmptyList(){
+  
+  if(DataArray.length==0){
+    const NoHometask = `<li class="empty mt-3 d-flex justify-content-center align-items-center flex-column">
+    <div class="empty_text">Список пуст</div>
+    <img src="/img/edit-svgrepo-com.svg" alt="Пусто" class="empty_img">
+</li>`
+    listGroup.insertAdjacentHTML("afterbegin", NoHometask)
+  }
+
+  if (DataArray.length > 0){
+    const EmptyRazmetka = document.querySelector('.empty')
+    EmptyRazmetka ? EmptyRazmetka.remove() : null
+  } 
+}
 
