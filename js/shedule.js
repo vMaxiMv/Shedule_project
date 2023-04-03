@@ -292,10 +292,29 @@ const empty = document.querySelector('.empty')
 const goal = document.querySelector('.goal')
 
 let DataArray = []
+
+if(localStorage.getItem("DataArray")){
+ DataArray = JSON.parse(localStorage.getItem('DataArray'))
+}
+
+DataArray.forEach(function(item){
+  const cssClass = item.done ? 'list-group-items btn_ok--done' : 'list-group-items'
+  const inputPunkt = `<li id="${item.id}" class="${cssClass} d-flex justify-content-between align-items-center mt-5">
+  <span class="goal">${item.name}</span>
+  <div class="buttons_ok_no">
+      <button type="button" data-action="done" class="btn_action btn_ok">
+          <img src="/img/galochka.svg" alt="Ok" width="36" height="42">
+      </button>
+      <button type="button" data-action="delete" class="btn_action btn_del">
+          <img src="/img/krestic_2.0.svg" alt="delete" width="36" height="42">
+      </button>
+  </div>
+</li>`
+  listGroup.insertAdjacentHTML("beforeend", inputPunkt)
+})
 EmptyList()
+
 form.addEventListener('submit',addHomeTask)
-
-
 function addHomeTask (event){
   event.preventDefault()
   const inputVal = input.value
@@ -307,7 +326,7 @@ function addHomeTask (event){
   }
   DataArray.push(ObjectParametrs)
   const cssClass = ObjectParametrs.done ? 'list-group-items btn_ok--done' : 'list-group-items'
-  console.log(DataArray)
+  //console.log(DataArray)
   
   const inputPunkt = `<li id="${ObjectParametrs.id}" class="${cssClass} d-flex justify-content-between align-items-center mt-5">
   <span class="goal">${ObjectParametrs.name}</span>
@@ -324,7 +343,7 @@ function addHomeTask (event){
   form.reset()
   input.focus()
   EmptyList()
-
+  saveToLS()
 
   // if(listGroup.children.length > 1){
   //   empty.classList.add('none')
@@ -340,9 +359,10 @@ function deleteHomeTask(event){
     const index = DataArray.findIndex(elem=>elem.id==id)
     DataArray.splice(index,1)
     delElement.remove()
-    console.log(DataArray)
+    //console.log(DataArray)
   }
   EmptyList()
+  saveToLS()
   // if (listGroup.children.length == 1) empty.classList.remove('none')
 }
 listGroup.addEventListener('click', readyHomeTask)
@@ -354,9 +374,10 @@ const listItem = event.target.closest('li')
 const id_2 = listItem.id
 const index_2 = DataArray.findIndex(elem=>elem.id==id_2)
 DataArray[index_2].done = !DataArray[index_2].done
-console.log(DataArray[index_2].done)
+//console.log(DataArray[index_2].done)
 listItem.classList.toggle('btn_ok--done')
 }
+saveToLS()
 }
 
 function EmptyList(){
@@ -371,7 +392,10 @@ function EmptyList(){
 
   if (DataArray.length > 0){
     const EmptyRazmetka = document.querySelector('.empty')
-    EmptyRazmetka ? EmptyRazmetka.remove() : null
+    EmptyRazmetka ? EmptyRazmetka.remove() : null 
   } 
+}
+function saveToLS(){
+localStorage.setItem('DataArray', JSON.stringify(DataArray))
 }
 
