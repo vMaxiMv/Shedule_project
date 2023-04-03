@@ -359,9 +359,10 @@ function deleteHomeTask(event){
     const index = DataArray.findIndex(elem=>elem.id==id)
     DataArray.splice(index,1)
     delElement.remove()
+    EmptyList()
     //console.log(DataArray)
   }
-  EmptyList()
+  //EmptyList()
   saveToLS()
   // if (listGroup.children.length == 1) empty.classList.remove('none')
 }
